@@ -2,8 +2,8 @@
 Grammar and format checker for ABB Rapid code.
 
 - 🔎 Checks ABB RAPID code (.sys modules) for grammar errors and formatting issues.
-- 🦾 Tested with RobotWare 5 code
-- 🐍 Powered by Python and [pyparsing](https://github.com/pyparsing/pyparsing)
+- 🦾 Tested with RobotWare 5 code.
+- 🐍 Powered by Python and [pyparsing](https://github.com/pyparsing/pyparsing).
 
 ## Getting started
 
@@ -22,7 +22,7 @@ If any grammar of format errors are found, they are printed to stdout and the co
 `rapidchecker` checks for:
 
 - Code that violates the ABB RAPID grammar.
-- Bad indentation. Assumers indentation of 4 spaces.
+- Bad indentation. Assumes indentation of 4 spaces.
 - Lowercase keywords (`if` instead of `IF`, `module` instead of `MODULE` etc)
 
 ## To be added
@@ -30,4 +30,4 @@ If any grammar of format errors are found, they are printed to stdout and the co
 - Add package to pip.
 - Automated tests.
 - File-based customization of rules (indentation size, rule ignore list etc).
-- Checks for procedure, variable, function and signal names (enforce camel or snakecase).
+- Checks for procedure, variable, function and signal names (enforce camel_case or snakeCase).
