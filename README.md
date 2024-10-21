@@ -17,7 +17,7 @@ python -m rapidchecker <path-to-file>
 
 If any grammar of format errors are found, they are printed to stdout and the command exits with exitcode 1.
 
-## Checks
+## Features
 
 `rapidchecker` checks for:
 
@@ -28,5 +28,6 @@ If any grammar of format errors are found, they are printed to stdout and the co
 ## To be added
 
 - Add package to pip.
+- Automated tests.
 - File-based customization of rules (indentation size, rule ignore list etc).
 - Checks for procedure, variable, function and signal names (enforce camel or snakecase).
