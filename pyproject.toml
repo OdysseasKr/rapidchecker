@@ -1,0 +1,19 @@
+[project]
+name = "rapidchecker"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1.7",
+    "pyparsing>=3.2.0",
+    "rich>=13.9.2",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ipython>=8.28.0",
+    "mypy>=1.12.1",
+    "pytest>=8.3.3",
+    "ruff>=0.7.0",
+]
