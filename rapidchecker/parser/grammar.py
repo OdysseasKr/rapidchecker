@@ -24,6 +24,7 @@ stmt = pp.Forward()
 
 # Function call
 named_arg = pp.Combine("\\" + identifier) + pp.Optional(":=" + expression)
+# TODO: Allow missing commas before named args
 argument_list = pp.Optional(pp.delimitedList(named_arg | expression))
 function_call = identifier + "(" - argument_list - ")"
 
