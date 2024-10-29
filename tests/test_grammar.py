@@ -25,6 +25,11 @@ from rapidchecker.parser.grammar import (
     func_call_stmt,
     connect_stmt,
     return_stmt,
+    func_def,
+    proc_def,
+    trap_def,
+    def_section,
+    module,
 )
 from rapidchecker.parser.indent import reset_level
 
@@ -263,3 +268,68 @@ def test_connect_stmt(input_str: str):
 )
 def test_return_stmt(input_str: str):
     assert return_stmt.parseString(input_str, parseAll=True).as_list()
+
+
+@pytest.mark.parametrize(
+    "input_str",
+    [
+        "FUNC bool funcName()\nENDFUNC",
+        "FUNC bool funcName(num arg1, \\num arg2, \\switch aa)\n  statement;\n  RETURN 1+1;\nENDFUNC",
+    ],
+)
+def test_func_def(input_str: str):
+    reset_level()
+    assert func_def.parseString(input_str, parseAll=True).as_list()
+
+
+@pytest.mark.parametrize(
+    "input_str",
+    [
+        "PROC procName()\nENDPROC",
+        "PROC procName(num arg1, \\num arg2, \\switch aa)\n  statement;\n  statement2;\nENDPROC",
+        "PROC procName(num arg1, \\num arg2, \\switch aa)\n  statement;\n  ERROR\n  statement2;\nENDPROC",
+    ],
+)
+def test_proc_def(input_str: str):
+    reset_level()
+    assert proc_def.parseString(input_str, parseAll=True).as_list()
+
+
+@pytest.mark.parametrize(
+    "input_str",
+    [
+        "TRAP trapName\nENDTRAP",
+        "TRAP trapName\n  statement1;\n  statement2;\nENDTRAP",
+    ],
+)
+def test_trap_def(input_str: str):
+    reset_level()
+    assert trap_def.parseString(input_str, parseAll=True).as_list()
+
+
+@pytest.mark.parametrize(
+    "input_str",
+    [
+        "TRAP trapName\nENDTRAP\nFUNC bool funcName()\nENDFUNC\nPROC procName()\nENDPROC\n",
+    ],
+)
+def test_def_section(input_str: str):
+    reset_level()
+    assert def_section.parseString(input_str, parseAll=True).as_list()
+
+
+def test_empty_def_section():
+    reset_level()
+    assert def_section.parseString("", parseAll=True).as_list() == []
+
+
+@pytest.mark.parametrize(
+    "input_str",
+    [
+        "MODULE ModuleName\nENDMODULE\n",
+        "MODULE ModuleName(SYSMODULE)\n  VAR num aa;\n  FUNC bool funcName()\n    statement;\n  ENDFUNC\n  PROC procName()\n  ENDPROC\nENDMODULE",
+    ],
+)
+def test_module(input_str: str):
+    reset_level()
+    assert module.parseString(input_str, parseAll=True).as_list()
