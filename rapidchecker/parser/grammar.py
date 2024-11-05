@@ -77,7 +77,6 @@ if_stmt = (
     - INDENT_CHECKPOINT
     - T.ENDIF
 )
-inline_if_stmt = T.IF + expression + stmt
 
 # Test statement
 test_stmt = (
@@ -111,10 +110,16 @@ func_call_stmt = function_call - ";"
 connect_stmt = T.CONNECT - identifier - T.WITH - identifier - ";"
 return_stmt = T.RETURN - pp.Optional(expression) - ";"
 
+compact_if_stmt = (
+    T.IF
+    + expression
+    + (assignment | func_call_stmt | proc_call_stmt | return_stmt | connect_stmt)
+)
+
 stmt <<= (
     assignment
     | if_stmt
-    | inline_if_stmt
+    | compact_if_stmt
     | test_stmt
     | while_stmt
     | for_stmt

@@ -6,46 +6,46 @@ from rapidchecker.parser.grammar import (
     array,
     assignment,
     comment,
+    compact_if_stmt,
+    connect_stmt,
+    def_section,
     eval_stmt,
     expression,
+    for_stmt,
+    func_call_stmt,
+    func_def,
     function_call,
+    if_stmt,
+    module,
     named_arg,
+    proc_call_stmt,
+    proc_def,
     record_def,
+    return_stmt,
     stmt,
     stmt_block,
     term,
+    test_stmt,
+    trap_def,
     var_def,
     var_def_section,
-    if_stmt,
-    inline_if_stmt,
-    test_stmt,
     while_stmt,
-    for_stmt,
-    proc_call_stmt,
-    func_call_stmt,
-    connect_stmt,
-    return_stmt,
-    func_def,
-    proc_def,
-    trap_def,
-    def_section,
-    module,
 )
 from rapidchecker.parser.indent import reset_level
 
 
-def test_comment():
+def test_comment() -> None:
     result = comment.parseString("!This is a comment", parseAll=True).as_list()
     assert result == ["!", "This is a comment"]
 
 
-def test_eval():
+def test_eval() -> None:
     result = eval_stmt.parseString("%procCall%", parseAll=True).as_list()
     assert result == ["%", "procCall%"]
 
 
 @pytest.mark.parametrize("valid_expression", ["a + 1", "a{100}", "b.c.d{*} AND TRUE"])
-def test_expression(valid_expression: str):
+def test_expression(valid_expression: str) -> None:
     assert expression.parseString(valid_expression, parseAll=True).as_list()
 
 
@@ -53,7 +53,7 @@ def test_expression(valid_expression: str):
     "input_str",
     ["a := 1;", "RETURN TRUE;", "procCall;", 'a := funcCall(1, "string");'],
 )
-def test_statement(input_str: str):
+def test_statement(input_str: str) -> None:
     assert stmt.parseString(input_str, parseAll=True).as_list()
 
 
@@ -61,42 +61,44 @@ def test_statement(input_str: str):
     "input_str",
     ["a == 1;", "RETURN TRUE"],
 )
-def test_invalid_statement(input_str: str):
+def test_invalid_statement(input_str: str) -> None:
     with pytest.raises(ParseSyntaxException):
         stmt.parseString(input_str, parseAll=True)
 
 
 @pytest.mark.parametrize(
-    "valid_block", ["  a := 1;\n  b:=c;", "  RETURN TRUE;\n  a:=c;"]
+    "valid_block",
+    ["  a := 1;\n  b:=c;", "  RETURN TRUE;\n  a:=c;"],
 )
-def test_stmt_block(valid_block: str):
+def test_stmt_block(valid_block: str) -> None:
     reset_level()
     assert stmt_block.parseString(valid_block, parseAll=True).as_list()
 
 
 @pytest.mark.parametrize("input_str", ["\\a", "\\a:=c"])
-def test_named_arg(input_str: str):
+def test_named_arg(input_str: str) -> None:
     assert named_arg.parseString(input_str, parseAll=True).as_list()
 
 
 @pytest.mark.parametrize("input_str", ["\\a", "\\a, \\b:=c", "\\a, c+1", "a, \\b:=c"])
-def test_arg_list(input_str: str):
+def test_arg_list(input_str: str) -> None:
     assert argument_list.parseString(input_str, parseAll=True).as_list()
 
 
-def test_empty_arg_list():
+def test_empty_arg_list() -> None:
     assert argument_list.parseString("", parseAll=True).as_list() == []
 
 
 @pytest.mark.parametrize("input_str", ["a(\\a)", "funcName()", "funcName(c+1, \\a)"])
-def test_function_call(input_str: str):
+def test_function_call(input_str: str) -> None:
     assert function_call.parseString(input_str, parseAll=True).as_list()
 
 
 @pytest.mark.parametrize(
-    "input_str", ["[TRUE AND FALSE]", "[1,2]", '[b + c, "dsads", "dsadsa"]']
+    "input_str",
+    ["[TRUE AND FALSE]", "[1,2]", '[b + c, "dsads", "dsadsa"]'],
 )
-def test_array(input_str: str):
+def test_array(input_str: str) -> None:
     assert array.parseString(input_str, parseAll=True).as_list()
 
 
@@ -112,7 +114,7 @@ def test_array(input_str: str):
         "[1,2,3,4]",
     ],
 )
-def test_term(input_str: str):
+def test_term(input_str: str) -> None:
     assert term.parseString(input_str, parseAll=True).as_list()
 
 
@@ -120,7 +122,7 @@ def test_term(input_str: str):
     "input_str",
     ["a:=b;", "a:=(1+2+3);", "object.attr := [1,2,34];", "objects{1}.attr := NOT b;"],
 )
-def test_assignment(input_str: str):
+def test_assignment(input_str: str) -> None:
     assert assignment.parseString(input_str, parseAll=True).as_list()
 
 
@@ -128,7 +130,7 @@ def test_assignment(input_str: str):
     "input_str",
     ["RECORD test\n  string a;\n  robtarget target;\n  num a;\nENDRECORD"],
 )
-def test_record_def(input_str: str):
+def test_record_def(input_str: str) -> None:
     reset_level()
     assert record_def.parseString(input_str, parseAll=True).as_list()
 
@@ -141,7 +143,7 @@ def test_record_def(input_str: str):
         "CONST num number := 1 + 1;",
     ],
 )
-def test_var_def(input_str: str):
+def test_var_def(input_str: str) -> None:
     assert var_def.parseString(input_str, parseAll=True).as_list()
 
 
@@ -151,7 +153,7 @@ def test_var_def(input_str: str):
         "PERS string varName;\nVAR robtarget targets{1000};\nCONST num number := 1 + 1;",
     ],
 )
-def test_var_def_section(input_str: str):
+def test_var_def_section(input_str: str) -> None:
     assert var_def_section.parseString(input_str, parseAll=True).as_list()
 
 
@@ -163,7 +165,7 @@ def test_var_def_section(input_str: str):
         "IF a THEN\n  callProc;\n  callProc2;\nELSEIF new_condition AND B THEN\n  callNewProc;\n  callProc2;\nELSE\n  callAnotherProc;\nENDIF",
     ],
 )
-def test_valid_if_stmt(input_str: str):
+def test_valid_if_stmt(input_str: str) -> None:
     reset_level()
     assert if_stmt.parseString(input_str, parseAll=True).as_list()
 
@@ -176,7 +178,7 @@ def test_valid_if_stmt(input_str: str):
         "IF a THEN\n  callProc;\nELSEIF new_condition AND B\n  callNewProc;\nELSE\n  callAnotherProc;\nENDIF",
     ],
 )
-def test_invalid_if_stmt(input_str: str):
+def test_invalid_if_stmt(input_str: str) -> None:
     reset_level()
     with pytest.raises((ParseException, ParseSyntaxException)):
         if_stmt.parseString(input_str, parseAll=True)
@@ -189,8 +191,8 @@ def test_invalid_if_stmt(input_str: str):
         "IF a callProc;",
     ],
 )
-def test_inline_if(input_str: str):
-    assert inline_if_stmt.parseString(input_str, parseAll=True).as_list()
+def test_compact_if(input_str: str) -> None:
+    assert compact_if_stmt.parseString(input_str, parseAll=True).as_list()
 
 
 @pytest.mark.parametrize(
@@ -199,7 +201,7 @@ def test_inline_if(input_str: str):
         "TEST a\nCASE 1:\n  callProc1;\n  callProc2;\nCASE 2:\n  callProc3;\nDEFAULT:\n  callDefaultProc;\n  STOP;\nENDTEST",
     ],
 )
-def test_test_stmt(input_str: str):
+def test_test_stmt(input_str: str) -> None:
     reset_level()
     assert test_stmt.parseString(input_str, parseAll=True).as_list()
 
@@ -210,7 +212,7 @@ def test_test_stmt(input_str: str):
         "WHILE NOT A OR B DO\n  callProc1;\n  callProc2;\nENDWHILE",
     ],
 )
-def test_while_stmt(input_str: str):
+def test_while_stmt(input_str: str) -> None:
     reset_level()
     assert while_stmt.parseString(input_str, parseAll=True).as_list()
 
@@ -221,7 +223,7 @@ def test_while_stmt(input_str: str):
         "FOR i FROM 0 TO 10 STEP 2 DO\n  callProc1;\n  callProc2;\nENDFOR",
     ],
 )
-def test_for_stmt(input_str: str):
+def test_for_stmt(input_str: str) -> None:
     reset_level()
     assert for_stmt.parseString(input_str, parseAll=True).as_list()
 
@@ -235,7 +237,7 @@ def test_for_stmt(input_str: str):
         "callProc arg1, arg2, \\opt:=(1+1), \\switch;",
     ],
 )
-def test_proc_call_stmt(input_str: str):
+def test_proc_call_stmt(input_str: str) -> None:
     assert proc_call_stmt.parseString(input_str, parseAll=True).as_list()
 
 
@@ -248,7 +250,7 @@ def test_proc_call_stmt(input_str: str):
         "callFunc(arg1, arg2, \\opt:=(1+1), \\switch);",
     ],
 )
-def test_func_call_stmt(input_str: str):
+def test_func_call_stmt(input_str: str) -> None:
     assert func_call_stmt.parseString(input_str, parseAll=True).as_list()
 
 
@@ -258,7 +260,7 @@ def test_func_call_stmt(input_str: str):
         "CONNECT varName WITH something;",
     ],
 )
-def test_connect_stmt(input_str: str):
+def test_connect_stmt(input_str: str) -> None:
     assert connect_stmt.parseString(input_str, parseAll=True).as_list()
 
 
@@ -266,7 +268,7 @@ def test_connect_stmt(input_str: str):
     "input_str",
     ["RETURN TRUE;", "RETURN 1+1;", "RETURN NOT (A OR B OR C);"],
 )
-def test_return_stmt(input_str: str):
+def test_return_stmt(input_str: str) -> None:
     assert return_stmt.parseString(input_str, parseAll=True).as_list()
 
 
@@ -277,7 +279,7 @@ def test_return_stmt(input_str: str):
         "FUNC bool funcName(num arg1, \\num arg2, \\switch aa)\n  statement;\n  RETURN 1+1;\nENDFUNC",
     ],
 )
-def test_func_def(input_str: str):
+def test_func_def(input_str: str) -> None:
     reset_level()
     assert func_def.parseString(input_str, parseAll=True).as_list()
 
@@ -290,7 +292,7 @@ def test_func_def(input_str: str):
         "PROC procName(num arg1, \\num arg2, \\switch aa)\n  statement;\n  ERROR\n  statement2;\nENDPROC",
     ],
 )
-def test_proc_def(input_str: str):
+def test_proc_def(input_str: str) -> None:
     reset_level()
     assert proc_def.parseString(input_str, parseAll=True).as_list()
 
@@ -302,7 +304,7 @@ def test_proc_def(input_str: str):
         "TRAP trapName\n  statement1;\n  statement2;\nENDTRAP",
     ],
 )
-def test_trap_def(input_str: str):
+def test_trap_def(input_str: str) -> None:
     reset_level()
     assert trap_def.parseString(input_str, parseAll=True).as_list()
 
@@ -313,12 +315,12 @@ def test_trap_def(input_str: str):
         "TRAP trapName\nENDTRAP\nFUNC bool funcName()\nENDFUNC\nPROC procName()\nENDPROC\n",
     ],
 )
-def test_def_section(input_str: str):
+def test_def_section(input_str: str) -> None:
     reset_level()
     assert def_section.parseString(input_str, parseAll=True).as_list()
 
 
-def test_empty_def_section():
+def test_empty_def_section() -> None:
     reset_level()
     assert def_section.parseString("", parseAll=True).as_list() == []
 
@@ -330,6 +332,6 @@ def test_empty_def_section():
         "MODULE ModuleName(SYSMODULE)\n  VAR num aa;\n  FUNC bool funcName()\n    statement;\n  ENDFUNC\n  PROC procName()\n  ENDPROC\nENDMODULE",
     ],
 )
-def test_module(input_str: str):
+def test_module(input_str: str) -> None:
     reset_level()
     assert module.parseString(input_str, parseAll=True).as_list()

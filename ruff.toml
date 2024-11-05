@@ -53,3 +53,6 @@ target-version = "py311"
 
 [lint.flake8-unused-arguments]
 ignore-variadic-names = true
+
+[lint.per-file-ignores]
+"tests/*" = ["E501"]

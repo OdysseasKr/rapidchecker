@@ -18,6 +18,9 @@ def check_indent(s: str, loc: int, _: list) -> None:
     expected_col = indent_level * INDENT_SIZE + 1
 
     if cur_col != expected_col:
+        print(
+            s[loc : loc + 10],
+        )
         raise pp.ParseFatalException(
             s,
             loc,
