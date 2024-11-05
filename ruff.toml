@@ -1,0 +1,55 @@
+lint.select = [
+    "E",
+    "F",
+    "YTT",
+    "W",
+    "I",
+    "N",
+    "UP",
+    "B",
+    "A",
+    "C4",
+    "A",
+    "T10",
+    "T20",
+    "PYI",
+    "RET",
+    "SIM",
+    "DJ",
+    "PT",
+    "TCH",
+    "ERA",
+    "TRY",
+    "PERF",
+    "SIM",
+    "RUF",
+    "NPY",
+    "ASYNC",
+    "COM",
+    "PIE",
+    "FA",
+    "ISC",
+    "ICN",
+    "Q",
+    "RSE",
+    "TID",
+    "ARG",
+    "FLY",
+    "DTZ",
+    "PTH",
+    "ANN",
+    "C90",
+    "FBT",
+]
+
+lint.ignore = [
+    "ANN101",
+    "ANN002",
+    "ANN003",
+    "N812",
+]
+
+target-version = "py311"
+
+[lint.flake8-unused-arguments]
+ignore-variadic-names = true
