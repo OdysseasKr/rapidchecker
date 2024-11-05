@@ -4,10 +4,8 @@ from pathlib import Path
 
 def get_sys_files(path: str | Path) -> Iterable[str]:
     path = Path(path)
-    if path.endswith(".sys"):
+    if path.suffix == ".sys":
         return [path]
-    if path.endswith("/"):
-        path = path[:-1]
     return path.glob("**/*.sys")
 
 
