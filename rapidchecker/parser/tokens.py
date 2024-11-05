@@ -1,7 +1,7 @@
 from pyparsing import CaselessKeyword, oneOf
 
 
-def case_check(s, loc, tokens):
+def case_check(s: str, loc: int, tokens: list) -> bool:
     return s[loc : loc + len(tokens[0])].isupper()
 
 

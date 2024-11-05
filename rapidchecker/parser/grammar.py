@@ -187,5 +187,5 @@ register_indent_checks(
         T.FOR,
         T.WHILE,
         T.TEST,
-    ]
+    ],
 )

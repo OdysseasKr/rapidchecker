@@ -5,7 +5,7 @@ INDENT_SIZE = 2
 CHECK_INDENT = True
 
 
-def check_indent(s, loc, tokens):
+def check_indent(s: str, loc: int, _: list) -> None:
     global indent_level
     if not CHECK_INDENT:
         return
@@ -25,22 +25,22 @@ def check_indent(s, loc, tokens):
         )
 
 
-def add_indent(s, loc, tokens):
+def add_indent() -> None:
     global indent_level
     indent_level += 1
 
 
-def remove_indent():
+def remove_indent() -> None:
     global indent_level
     indent_level -= 1
 
 
-def reset_level():
+def reset_level() -> None:
     global indent_level
     indent_level = 0
 
 
-def register_indent_checks(parse_elements: list[pp.ParserElement]):
+def register_indent_checks(parse_elements: list[pp.ParserElement]) -> None:
     for p in parse_elements:
         p.add_parse_action(check_indent)
 

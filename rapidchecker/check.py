@@ -4,11 +4,11 @@ from .parser.grammar import module
 from .parser.indent import reset_level
 
 
-def format_exception_message(e: pp.ParseSyntaxException):
+def format_exception_message(e: pp.ParseSyntaxException) -> str:
     return f"{e.msg}{foundstr(e)}"
 
 
-def foundstr(e: pp.ParseSyntaxException):
+def foundstr(e: pp.ParseSyntaxException) -> str:
     if not e.pstr:
         return ""
 
@@ -16,11 +16,10 @@ def foundstr(e: pp.ParseSyntaxException):
         return ", found end of text"
     # pull out next word at error location
     found_match = pp.exceptions._exception_word_extractor.match(e.pstr, e.loc)
-    if found_match is not None:
-        found = found_match.group(0)
-    else:
-        found = e.pstr[e.loc : e.loc + 1]
-    return (", found %r" % found).replace(r"\\", "\\")
+    found = (
+        found_match.group(0) if found_match is not None else e.pstr[e.loc : e.loc + 1]
+    )
+    return (f", found {found!r}").replace(r"\\", "\\")
 
 
 def check_format(content: str) -> list[pp.ParseSyntaxException]:
