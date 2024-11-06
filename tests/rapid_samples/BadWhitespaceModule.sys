@@ -1,0 +1,27 @@
+MODULE SimpleModule(SYSMODULE)
+
+  VAR string message1 := "Hello";
+  PERS string message2;   
+
+
+
+
+  FUNC string getMessage()
+    VAR string space;
+    space := " ";
+    RETURN space + message2;
+  ENDFUNC
+
+  PROC main()
+    WHILE TRUE DO
+      IF TRUE THEN
+        TPWrite message1, getMessage();
+      ELSE
+        TPWrite "You should not see this";
+      ENDIF
+
+      WaitTime 2;
+    ENDWHILE
+  ENDPROC
+
+ENDMODULE
