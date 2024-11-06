@@ -28,6 +28,5 @@ If any grammar or format errors are found, they are printed to stdout and the co
 ## To be added
 
 - Add package to pip.
-- Whitespace checks (trailing space, blank line at EOF)
 - File-based customization of rules (indentation size, rule ignore list etc).
 - Checks for procedure, variable, function and signal names (enforce camel_case or snakeCase).
