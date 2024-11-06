@@ -5,13 +5,13 @@ MAX_NUM_EMPTY_LINES = 2
 
 @dataclass
 class WhiteSpaceError:
-    line: int
+    lineno: int
     col: int = 0
     error: str = ""
     suggestion: str = ""
 
     def __str__(self) -> str:
-        return f"{self.line}:{self.col} {self.error}. => {self.suggestion}"
+        return f"{self.lineno}:{self.col} {self.error}. => {self.suggestion}"
 
 
 @dataclass
