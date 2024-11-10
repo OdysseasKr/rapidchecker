@@ -1,6 +1,6 @@
 from pyparsing import CaselessKeyword, oneOf
 
-from ..config import CONFIG
+from rapidchecker.config import CONFIG
 
 
 def case_check(s: str, loc: int, tokens: list) -> bool:

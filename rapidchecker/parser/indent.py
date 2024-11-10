@@ -1,6 +1,6 @@
 import pyparsing as pp
 
-from ..config import CONFIG
+from rapidchecker.config import CONFIG
 
 indent_level = 0
 INDENT_SIZE = 2
