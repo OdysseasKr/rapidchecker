@@ -28,5 +28,5 @@ If any grammar or format errors are found, they are printed to stdout and the co
 ## To be added
 
 - Add package to pip.
-- File-based customization of rules (indentation size, rule ignore list etc).
+- CI
 - Checks for procedure, variable, function and signal names (enforce camel_case or snakeCase).

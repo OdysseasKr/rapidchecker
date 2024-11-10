@@ -1,5 +1,7 @@
 import pyparsing as pp
 
+from ..config import CONFIG
+
 indent_level = 0
 INDENT_SIZE = 2
 CHECK_INDENT = True
@@ -7,7 +9,7 @@ CHECK_INDENT = True
 
 def check_indent(s: str, loc: int, _: list) -> None:
     global indent_level
-    if not CHECK_INDENT:
+    if not CONFIG.indentation_check:
         return
 
     # Why is this necessary?
@@ -15,7 +17,7 @@ def check_indent(s: str, loc: int, _: list) -> None:
         loc += 1
 
     cur_col = pp.col(loc, s)
-    expected_col = indent_level * INDENT_SIZE + 1
+    expected_col = indent_level * CONFIG.indentation_size + 1
 
     if cur_col != expected_col:
         raise pp.ParseFatalException(
