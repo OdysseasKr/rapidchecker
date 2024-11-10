@@ -1,4 +1,4 @@
-name: Pytest
+name: Python checks
 
 on: [push]
 
@@ -15,7 +15,9 @@ jobs:
     - name: Set up Python
       run: uv python install
     - name: Ruff
-      run: uv run ruff check rapidchecker
+      run: |
+      uv run ruff check rapidchecker
+      uv run ruff format --check rapidchecker
     - name: Mypy
       run: uv run mypy rapidchecker
     - name: Pytest
