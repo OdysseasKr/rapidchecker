@@ -1,9 +1,9 @@
-from pyparsing import CaselessKeyword, oneOf
+from pyparsing import CaselessKeyword, ParseResults, oneOf
 
 from rapidchecker.config import CONFIG
 
 
-def case_check(s: str, loc: int, tokens: list) -> bool:
+def case_check(s: str, loc: int, tokens: ParseResults) -> bool:
     return s[loc : loc + len(tokens[0])].isupper()
 
 

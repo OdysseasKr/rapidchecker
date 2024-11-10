@@ -1,7 +1,7 @@
 import sys
 
 import click
-from pyparsing import ParseException
+from pyparsing import ParseBaseException
 from rich import print
 
 from rapidchecker.whitespace_checks import WhiteSpaceError
@@ -15,9 +15,9 @@ def in_ignore_list(path: str, ignore_list: list[str]) -> bool:
     return any(item in path for item in ignore_list)
 
 
-def check_file(file_contents: str) -> list[ParseException | WhiteSpaceError]:
-    errors = []
-    errors = check_format(file_contents)
+def check_file(file_contents: str) -> list[ParseBaseException | WhiteSpaceError]:
+    errors: list[ParseBaseException | WhiteSpaceError] = []
+    errors.extend(check_format(file_contents))
     errors.extend(check_whitespace(file_contents))
     errors.sort(key=lambda e: e.lineno)
     return errors
@@ -30,7 +30,7 @@ def cli(path: str, ignore: list[str]) -> None:
     found_errors = False
 
     for filepath in get_sys_files(path):
-        if in_ignore_list(filepath, ignore):
+        if in_ignore_list(str(filepath), ignore):
             print("Skipping", filepath)
             continue
         errors = check_file(read_sys_file(filepath))

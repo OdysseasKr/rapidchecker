@@ -7,7 +7,7 @@ INDENT_SIZE = 2
 CHECK_INDENT = True
 
 
-def check_indent(s: str, loc: int, _: list) -> None:
+def check_indent(s: str, loc: int, _: pp.ParseResults) -> None:
     global indent_level
     if not CONFIG.indentation_check:
         return

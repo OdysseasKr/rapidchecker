@@ -13,7 +13,7 @@ class Config:
     allow_trailing_space: bool = False
 
     @classmethod
-    def read_config(cls, config_file: Path) -> None:
+    def read_config(cls, config_file: Path) -> "Config":
         default_dict = cls()
         if not config_file.exists():
             return default_dict

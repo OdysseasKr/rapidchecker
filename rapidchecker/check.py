@@ -8,12 +8,12 @@ def get_exception_message(e: pp.ParseSyntaxException) -> str:
     return f"{e.lineno}:{e.column} {e.msg}, found {e.found}"
 
 
-pp.ParseSyntaxException.__str__ = get_exception_message
+pp.ParseSyntaxException.__str__ = get_exception_message  # type: ignore
 
 
-def check_format(content: str) -> list[pp.ParseSyntaxException]:
+def check_format(content: str) -> list[pp.ParseBaseException]:
     reset_level()
-    errors = []
+    errors: list[pp.ParseBaseException] = []
     try:
         module.parseString(content, parseAll=True)
     except pp.ParseSyntaxException as e:

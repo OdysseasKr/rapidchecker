@@ -46,7 +46,7 @@ def empty_line(line: str) -> bool:
 
 
 def check_whitespace(content: str) -> list[WhiteSpaceError]:
-    errors = []
+    errors: list[WhiteSpaceError] = []
     empty_line_count = 0
     lines = content.split("\n")
     for i, line in enumerate(lines, start=1):
