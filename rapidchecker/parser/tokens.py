@@ -1,5 +1,7 @@
 from pyparsing import CaselessKeyword, oneOf
 
+from ..config import CONFIG
+
 
 def case_check(s: str, loc: int, tokens: list) -> bool:
     return s[loc : loc + len(tokens[0])].isupper()
@@ -8,7 +10,8 @@ def case_check(s: str, loc: int, tokens: list) -> bool:
 class RapidKeyword(CaselessKeyword):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.addCondition(case_check, message="Keyword needs to be in uppercase")
+        if CONFIG.require_uppercase_keywords:
+            self.addCondition(case_check, message="Keyword needs to be in uppercase")
 
 
 # TODO: Can we turn these into enums?

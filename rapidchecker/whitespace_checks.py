@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-MAX_NUM_EMPTY_LINES = 2
+from .config import CONFIG
 
 
 @dataclass
@@ -18,7 +18,7 @@ class WhiteSpaceError:
 class TooManyEmptyLinesError(WhiteSpaceError):
     def __post_init__(self) -> None:
         self.error = "Too many empty lines"
-        self.suggestion = f"Use up to {MAX_NUM_EMPTY_LINES} empty lines"
+        self.suggestion = f"Use up to {CONFIG.max_empty_lines} empty lines"
 
 
 @dataclass
@@ -36,6 +36,8 @@ class NoTrailingLineError(WhiteSpaceError):
 
 
 def trailing_space(line: str) -> bool:
+    if CONFIG.allow_trailing_space:
+        return False
     return line.endswith(" ")
 
 
@@ -50,7 +52,7 @@ def check_whitespace(content: str) -> list[WhiteSpaceError]:
     for i, line in enumerate(lines, start=1):
         if empty_line(line):
             empty_line_count += 1
-            if empty_line_count > MAX_NUM_EMPTY_LINES:
+            if empty_line_count > CONFIG.max_empty_lines:
                 errors.append(TooManyEmptyLinesError(i))
             continue
 
@@ -58,6 +60,7 @@ def check_whitespace(content: str) -> list[WhiteSpaceError]:
         if trailing_space(line):
             errors.append(TrailingSpaceError(i, col=len(line)))
 
-    if not empty_line(lines[-1]):
+    if CONFIG.require_new_line_eof and not empty_line(lines[-1]):
         errors.append(NoTrailingLineError(len(lines)))
+
     return errors
