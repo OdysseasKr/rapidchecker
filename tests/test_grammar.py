@@ -17,7 +17,7 @@ from rapidchecker.parser.grammar import (
     function_call,
     if_stmt,
     module,
-    named_arg,
+    optional_arg,
     proc_call_stmt,
     proc_def,
     record_def,
@@ -76,8 +76,8 @@ def test_stmt_block(valid_block: str) -> None:
 
 
 @pytest.mark.parametrize("input_str", ["\\a", "\\a:=c"])
-def test_named_arg(input_str: str) -> None:
-    assert named_arg.parseString(input_str, parseAll=True).as_list()
+def test_optional_arg(input_str: str) -> None:
+    assert optional_arg.parseString(input_str, parseAll=True).as_list()
 
 
 @pytest.mark.parametrize("input_str", ["\\a", "\\a, \\b:=c", "\\a, c+1", "a, \\b:=c"])
@@ -140,6 +140,7 @@ def test_record_def(input_str: str) -> None:
     [
         "PERS string varName;",
         "VAR robtarget targets{1000};",
+        "VAR robtarget targets{var1 + var2};",
         "CONST num number := 1 + 1;",
     ],
 )
@@ -235,6 +236,7 @@ def test_for_stmt(input_str: str) -> None:
         "callProc arg1, arg2, A AND B;",
         "callProc arg1, arg2, \\switch;",
         "callProc arg1, arg2, \\opt:=(1+1), \\switch;",
+        "callProc arg1, name:=arg2 \\opt:=(1+1) \\switch;",
     ],
 )
 def test_proc_call_stmt(input_str: str) -> None:
@@ -248,6 +250,7 @@ def test_proc_call_stmt(input_str: str) -> None:
         "callFunc(arg1, arg2, A AND B);",
         "callFunc(arg1, arg2, \\switch);",
         "callFunc(arg1, arg2, \\opt:=(1+1), \\switch);",
+        "callFunc(arg1, name:=arg2 \\opt:=(1+1) \\switch);",
     ],
 )
 def test_func_call_stmt(input_str: str) -> None:

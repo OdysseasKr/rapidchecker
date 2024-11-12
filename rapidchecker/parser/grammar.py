@@ -22,10 +22,13 @@ expression = pp.Forward()
 stmt_block = pp.Forward()
 stmt = pp.Forward()
 
-# Function call
-named_arg = pp.Combine("\\" + identifier) + pp.Optional(":=" + expression)
-# TODO: Allow missing commas before named args
-argument_list = pp.Optional(pp.delimitedList(named_arg | expression))
+# Arguments for proc and functon calls
+optional_arg = pp.Combine("\\" + identifier) + pp.Optional(":=" + expression)
+required_arg = pp.Optional(identifier + ":=") + expression
+first_argument = optional_arg | required_arg
+argument = ("," + (optional_arg | required_arg)) | optional_arg
+argument_list = pp.Optional(first_argument + pp.ZeroOrMore(argument))
+
 function_call = identifier + "(" - argument_list - ")"
 
 array = "[" + pp.delimitedList(expression) + "]"
@@ -60,7 +63,7 @@ var_def = (
     (T.PERS | T.VAR | T.CONST)
     + datatype
     + identifier
-    + pp.Optional("{" + pp.pyparsing_common.integer + "}")
+    + pp.Optional("{" + expression + "}")
     + pp.Optional(":=" + expression)
     + ";"
 )

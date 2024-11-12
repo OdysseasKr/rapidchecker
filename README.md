@@ -29,3 +29,8 @@ If any grammar or format errors are found, they are printed to stdout and the co
 
 - Add package to pip.
 - Checks for procedure, variable, function and signal names (enforce camel_case or snakeCase).
+
+## References
+
+- ABB RAPID [docs](https://library.e.abb.com/public/f23f1c3e506a4383b635cff165cc6993/3HAC050946+TRM+RAPID+Kernel+RW+6-en.pdf?x-sign=oUq9VZeSx%2Fve4%2BCCAYZVeAQoLxtMdzw6S2BkJobVIFhUVtPrZ8dmV1VIHdk%2B6Yfg)
+- [PyParsing](https://pyparsing-docs.readthedocs.io/en/latest/)
