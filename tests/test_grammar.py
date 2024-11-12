@@ -140,6 +140,7 @@ def test_record_def(input_str: str) -> None:
     [
         "PERS string varName;",
         "VAR robtarget targets{1000};",
+        "VAR robtarget targets{var1 + var2};",
         "CONST num number := 1 + 1;",
     ],
 )

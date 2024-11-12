@@ -60,7 +60,7 @@ var_def = (
     (T.PERS | T.VAR | T.CONST)
     + datatype
     + identifier
-    + pp.Optional("{" + pp.pyparsing_common.integer + "}")
+    + pp.Optional("{" + expression + "}")
     + pp.Optional(":=" + expression)
     + ";"
 )
