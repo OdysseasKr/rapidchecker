@@ -17,7 +17,7 @@ from rapidchecker.parser.grammar import (
     function_call,
     if_stmt,
     module,
-    named_arg,
+    optional_arg,
     proc_call_stmt,
     proc_def,
     record_def,
@@ -76,8 +76,8 @@ def test_stmt_block(valid_block: str) -> None:
 
 
 @pytest.mark.parametrize("input_str", ["\\a", "\\a:=c"])
-def test_named_arg(input_str: str) -> None:
-    assert named_arg.parseString(input_str, parseAll=True).as_list()
+def test_optional_arg(input_str: str) -> None:
+    assert optional_arg.parseString(input_str, parseAll=True).as_list()
 
 
 @pytest.mark.parametrize("input_str", ["\\a", "\\a, \\b:=c", "\\a, c+1", "a, \\b:=c"])
