@@ -236,6 +236,7 @@ def test_for_stmt(input_str: str) -> None:
         "callProc arg1, arg2, A AND B;",
         "callProc arg1, arg2, \\switch;",
         "callProc arg1, arg2, \\opt:=(1+1), \\switch;",
+        "callProc arg1, name:=arg2 \\opt:=(1+1) \\switch;",
     ],
 )
 def test_proc_call_stmt(input_str: str) -> None:
@@ -249,6 +250,7 @@ def test_proc_call_stmt(input_str: str) -> None:
         "callFunc(arg1, arg2, A AND B);",
         "callFunc(arg1, arg2, \\switch);",
         "callFunc(arg1, arg2, \\opt:=(1+1), \\switch);",
+        "callFunc(arg1, name:=arg2 \\opt:=(1+1) \\switch);",
     ],
 )
 def test_func_call_stmt(input_str: str) -> None:

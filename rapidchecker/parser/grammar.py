@@ -22,10 +22,12 @@ expression = pp.Forward()
 stmt_block = pp.Forward()
 stmt = pp.Forward()
 
-# Function call
+# Arguments for proc and functon calls
 named_arg = pp.Combine("\\" + identifier) + pp.Optional(":=" + expression)
-# TODO: Allow missing commas before named args
-argument_list = pp.Optional(pp.delimitedList(named_arg | expression))
+unnamed_arg = pp.Optional(identifier + ":=") + expression
+argument = ("," + (named_arg | unnamed_arg)) | named_arg
+argument_list = pp.Optional(named_arg | unnamed_arg) + pp.ZeroOrMore(argument)
+
 function_call = identifier + "(" - argument_list - ")"
 
 array = "[" + pp.delimitedList(expression) + "]"
