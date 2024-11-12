@@ -23,10 +23,11 @@ stmt_block = pp.Forward()
 stmt = pp.Forward()
 
 # Arguments for proc and functon calls
-named_arg = pp.Combine("\\" + identifier) + pp.Optional(":=" + expression)
-unnamed_arg = pp.Optional(identifier + ":=") + expression
-argument = ("," + (named_arg | unnamed_arg)) | named_arg
-argument_list = pp.Optional(named_arg | unnamed_arg) + pp.ZeroOrMore(argument)
+optional_arg = pp.Combine("\\" + identifier) + pp.Optional(":=" + expression)
+required_arg = pp.Optional(identifier + ":=") + expression
+first_argument = optional_arg | required_arg
+argument = ("," + (optional_arg | required_arg)) | optional_arg
+argument_list = pp.Optional(first_argument + pp.ZeroOrMore(argument))
 
 function_call = identifier + "(" - argument_list - ")"
 
