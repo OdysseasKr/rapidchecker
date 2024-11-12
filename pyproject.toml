@@ -5,7 +5,7 @@ description = " Grammar and format checker for ABB RAPID code. "
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "click>=8.1.7",
+    "click>=7.0.0",
     "pyparsing>=3.2.0",
     "rich>=13.9.2",
 ]
