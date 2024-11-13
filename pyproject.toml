@@ -10,6 +10,10 @@ dependencies = [
     "rich>=13.9.2",
 ]
 
+[project.urls]
+Homepage = "https://github.com/OdysseasKr/rapidchecker"
+Issues = "https://github.com/OdysseasKr/rapidchecker/issues"
+
 [tool.uv]
 dev-dependencies = [
     "ipython>=8.28.0",
