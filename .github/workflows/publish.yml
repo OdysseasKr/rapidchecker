@@ -14,4 +14,4 @@ jobs:
       - name: Set up Python
         run: uv python install
       - name: Build & publish
-        uv publish --publish-url https://test.pypi.org/legacy/ --trushed-publishing always dist/*
+        run: uv publish --publish-url https://test.pypi.org/legacy/ --trushed-publishing always dist/*
