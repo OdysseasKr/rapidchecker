@@ -60,12 +60,13 @@ record_def_section = pp.ZeroOrMore(record_def)
 
 # Variable definition
 var_def = (
-    (T.PERS | T.VAR | T.CONST)
+    pp.Optional(T.LOCAL | T.TASK)
+    + (T.PERS | T.VAR | T.CONST)
     + datatype
-    + identifier
-    + pp.Optional("{" + expression + "}")
-    + pp.Optional(":=" + expression)
-    + ";"
+    - identifier
+    - pp.Optional("{" + expression + "}")
+    - pp.Optional(":=" + expression)
+    - ";"
 )
 var_def_section = pp.ZeroOrMore(var_def)
 

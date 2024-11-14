@@ -56,6 +56,8 @@ CASE = RapidKeyword("CASE")
 DEFAULT = RapidKeyword("DEFAULT")
 ERROR = RapidKeyword("ERROR")
 INOUT = RapidKeyword("INOUT")
+TASK = RapidKeyword("TASK")
+LOCAL = RapidKeyword("LOCAL")
 
 RESERVED_WORD = (
     MODULE
@@ -98,6 +100,9 @@ RESERVED_WORD = (
     | CASE
     | DEFAULT
     | ERROR
+    | INOUT
+    | TASK
+    | LOCAL
 )
 
 MODULE_OPTIONS = oneOf("SYSMODULE NOSTEPIN VIEWONLY READONLY")

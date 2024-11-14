@@ -154,6 +154,7 @@ def test_record_def(input_str: str) -> None:
         "VAR robtarget targets{1000};",
         "VAR robtarget targets{var1 + var2};",
         "CONST num number := 1 + 1;",
+        "LOCAL CONST num number := 1 + 1;",
     ],
 )
 def test_var_def(input_str: str) -> None:
