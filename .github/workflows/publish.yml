@@ -4,7 +4,9 @@ name: "tagged-release"
 permissions:
   id-token: write
 
-on: [push]
+on:
+  release:
+    types: [published]
 
 jobs:
   tagged-release:
