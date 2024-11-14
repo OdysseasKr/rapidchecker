@@ -46,7 +46,15 @@ def test_eval() -> None:
 
 @pytest.mark.parametrize(
     "valid_expression",
-    ["a + 1", "a{100}", "b.c.d{*} AND TRUE", "-a", "-10", "-funCall(a,b)"],
+    [
+        "a + 1",
+        "a{100}",
+        "b.c.d{*} AND TRUE",
+        "-a",
+        "-10",
+        "-funCall(a,b)",
+        "a = b AND b <> z",
+    ],
 )
 def test_expression(valid_expression: str) -> None:
     assert expression.parseString(valid_expression, parseAll=True).as_list()
@@ -168,6 +176,7 @@ def test_var_def_section(input_str: str) -> None:
         "IF a THEN\n  callProc;\nELSE\n  callAnotherProc;\nENDIF",
         "IF a THEN\n  callProc;\nELSEIF new_condition AND B THEN\n  callNewProc;\nELSE\n  callAnotherProc;\nENDIF",
         "IF a THEN\n  callProc;\n  callProc2;\nELSEIF new_condition AND B THEN\n  callNewProc;\n  callProc2;\nELSE\n  callAnotherProc;\nENDIF",
+        "IF a = b AND b <> 1 THEN\n  var1 := 0;\nENDIF",
     ],
 )
 def test_valid_if_stmt(input_str: str) -> None:
