@@ -13,5 +13,7 @@ jobs:
         uses: astral-sh/setup-uv@v3
       - name: Set up Python
         run: uv python install
-      - name: Build & publish
+      - name: Build
+        run: uv build
+      - name: Publish
         run: uv publish --publish-url https://test.pypi.org/legacy/ --trusted-publishing always dist/*
