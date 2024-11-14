@@ -44,7 +44,10 @@ def test_eval() -> None:
     assert result == ["%", "procCall%"]
 
 
-@pytest.mark.parametrize("valid_expression", ["a + 1", "a{100}", "b.c.d{*} AND TRUE"])
+@pytest.mark.parametrize(
+    "valid_expression",
+    ["a + 1", "a{100}", "b.c.d{*} AND TRUE", "-a", "-10", "-funCall(a,b)"],
+)
 def test_expression(valid_expression: str) -> None:
     assert expression.parseString(valid_expression, parseAll=True).as_list()
 
@@ -111,6 +114,7 @@ def test_array(input_str: str) -> None:
         '"string"',
         "(1+1)",
         "NOT a AND B",
+        "-(a AND B)",
         "[1,2,3,4]",
     ],
 )
@@ -237,6 +241,7 @@ def test_for_stmt(input_str: str) -> None:
         "callProc arg1, arg2, \\switch;",
         "callProc arg1, arg2, \\opt:=(1+1), \\switch;",
         "callProc arg1, name:=arg2 \\opt:=(1+1) \\switch;",
+        "MoveL RelTool(target, 0, 0, -Abs(z)), v1000, fine, tool, \\WObj:=wobj0;",
     ],
 )
 def test_proc_call_stmt(input_str: str) -> None:

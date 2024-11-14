@@ -9,7 +9,7 @@ from .indent import (
     register_indent_checks,
 )
 from .literals import RAPIDLITERAL
-from .operators import infix_op
+from .operators import infix_op, prefix_op
 
 pp.ParserElement.enable_packrat()
 
@@ -39,7 +39,7 @@ term = (
     | variable
     | RAPIDLITERAL
     | "(" + expression + ")"
-    | T.NOT + expression
+    | prefix_op + expression
     | array
 )
 expression <<= (term + infix_op + expression) | term
