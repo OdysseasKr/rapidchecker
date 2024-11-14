@@ -1,0 +1,25 @@
+name: "tagged-release"
+
+# Sets permissions of the ACTIONS_ID_TOKEN_REQUEST_TOKEN to allow deployment to PyPi
+permissions:
+  id-token: write
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  tagged-release:
+    name: "Tagged Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - name: Set up Python
+        run: uv python install
+      - name: Build
+        run: uv build
+      - name: Publish
+        run: uv publish --publish-url https://test.pypi.org/legacy/ --trusted-publishing always dist/*

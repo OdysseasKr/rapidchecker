@@ -1,6 +1,6 @@
 [project]
 name = "rapidchecker"
-version = "0.1.0"
+version = "0.2.1"
 description = " Grammar and format checker for ABB RAPID code. "
 readme = "README.md"
 requires-python = ">=3.10"
@@ -9,6 +9,10 @@ dependencies = [
     "pyparsing>=3.2.0",
     "rich>=13.9.2",
 ]
+
+[project.urls]
+Homepage = "https://github.com/OdysseasKr/rapidchecker"
+Issues = "https://github.com/OdysseasKr/rapidchecker/issues"
 
 [tool.uv]
 dev-dependencies = [

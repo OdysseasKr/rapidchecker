@@ -7,12 +7,12 @@ Grammar and format checker for ABB Rapid code.
 
 ## Getting started
 
-To install simply clone the repo and run `pip install .` .
+Install with `pip install rapidchecker`
 
-Then check a module (or a folder of modules) by running
+Then check a RAPID module (or a directory containing modules) by running
 
 ```bash
-python -m rapidchecker <path-to-file>
+python -m rapidchecker <path-to-file-or-dir>
 ```
 
 If any grammar or format errors are found, they are printed to stdout and the command exits with exitcode 1.
