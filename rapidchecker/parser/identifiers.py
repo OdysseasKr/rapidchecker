@@ -15,8 +15,8 @@ variable.set_name("variable")
 
 
 parameter = (
-    pp.Optional(T.INOUT | T.PERS)
-    + pp.Optional("\\")
+    pp.Optional("\\")
+    + pp.Optional(T.INOUT | T.PERS)
     + datatype
     + identifier
     + elem_index

@@ -48,7 +48,12 @@ def test_invalid_variable(invalid_variable: str) -> None:
 
 @pytest.mark.parametrize(
     "valid_parameter",
-    ["INOUT string name{100}", "string name", "\\robtarget target"],
+    [
+        "INOUT string name{100}",
+        "\\INOUT string name{100}",
+        "string name",
+        "\\robtarget target",
+    ],
 )
 def test_parameter(valid_parameter: str) -> None:
     assert parameter.parseString(valid_parameter, parseAll=True)

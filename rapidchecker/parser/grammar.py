@@ -9,7 +9,7 @@ from .indent import (
     register_indent_checks,
 )
 from .literals import RAPIDLITERAL
-from .operators import infix_op
+from .operators import infix_op, prefix_op
 
 pp.ParserElement.enable_packrat()
 
@@ -39,7 +39,7 @@ term = (
     | variable
     | RAPIDLITERAL
     | "(" + expression + ")"
-    | T.NOT + expression
+    | prefix_op + expression
     | array
 )
 expression <<= (term + infix_op + expression) | term
@@ -60,12 +60,13 @@ record_def_section = pp.ZeroOrMore(record_def)
 
 # Variable definition
 var_def = (
-    (T.PERS | T.VAR | T.CONST)
+    pp.Optional(T.LOCAL | T.TASK)
+    + (T.PERS | T.VAR | T.CONST)
     + datatype
-    + identifier
-    + pp.Optional("{" + expression + "}")
-    + pp.Optional(":=" + expression)
-    + ";"
+    - identifier
+    - pp.Optional("{" + expression + "}")
+    - pp.Optional(":=" + expression)
+    - ";"
 )
 var_def_section = pp.ZeroOrMore(var_def)
 
