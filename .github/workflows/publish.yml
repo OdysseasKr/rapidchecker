@@ -1,4 +1,4 @@
-name: "tagged-release"
+name: Release
 
 # Sets permissions of the ACTIONS_ID_TOKEN_REQUEST_TOKEN to allow deployment to PyPi
 permissions:
@@ -22,4 +22,4 @@ jobs:
       - name: Build
         run: uv build
       - name: Publish
-        run: uv publish --publish-url https://test.pypi.org/legacy/ --trusted-publishing always dist/*
+        run: uv publish --trusted-publishing always dist/*
