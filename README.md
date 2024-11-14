@@ -27,7 +27,6 @@ If any grammar or format errors are found, they are printed to stdout and the co
 
 ## To be added
 
-- Add package to pip.
 - Checks for procedure, variable, function and signal names (enforce camel_case or snakeCase).
 
 ## References
