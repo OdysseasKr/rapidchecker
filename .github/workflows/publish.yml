@@ -1,5 +1,9 @@
 name: "tagged-release"
 
+# Sets permissions of the ACTIONS_ID_TOKEN_REQUEST_TOKEN to allow deployment to PyPi
+permissions:
+  id-token: write
+
 on: [push]
 
 jobs:
