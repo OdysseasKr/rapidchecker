@@ -11,6 +11,7 @@ class Config:
     max_empty_lines: int = 2
     require_new_line_eof: bool = True
     allow_trailing_space: bool = False
+    indent_error_section: bool = False
 
     @classmethod
     def read_config(cls, config_file: Path) -> "Config":

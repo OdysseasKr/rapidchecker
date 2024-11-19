@@ -1,5 +1,7 @@
 import pyparsing as pp
 
+from rapidchecker.config import CONFIG
+
 from . import tokens as T
 from .identifiers import datatype, identifier, parameter_list, variable
 from .indent import (
@@ -149,7 +151,10 @@ func_def = (
 )
 
 # Proc definition
-error_section = T.ERROR - stmt_block
+if CONFIG.indent_error_section:
+    error_section = T.ERROR - INDENT - stmt_block - UNDENT
+else:
+    error_section = INDENT_CHECKPOINT + T.ERROR - stmt_block
 proc_def = (
     T.PROC
     - identifier

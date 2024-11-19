@@ -53,6 +53,7 @@ def test_invalid_variable(invalid_variable: str) -> None:
         "\\INOUT string name{100}",
         "string name",
         "\\robtarget target",
+        "VAR signaldo signal",
     ],
 )
 def test_parameter(valid_parameter: str) -> None:

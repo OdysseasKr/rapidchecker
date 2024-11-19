@@ -307,7 +307,7 @@ def test_func_def(input_str: str) -> None:
     [
         "PROC procName()\nENDPROC",
         "PROC procName(num arg1, \\num arg2, \\switch aa)\n  statement;\n  statement2;\nENDPROC",
-        "PROC procName(num arg1, \\num arg2, \\switch aa)\n  statement;\n  ERROR\n  statement2;\nENDPROC",
+        "PROC procName(num arg1, \\num arg2, \\switch aa)\n  statement;\nERROR\n  statement2;\nENDPROC",
     ],
 )
 def test_proc_def(input_str: str) -> None:
