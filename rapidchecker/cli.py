@@ -7,7 +7,7 @@ from rich import print
 from rapidchecker.whitespace_checks import WhiteSpaceError
 
 from .check import check_format
-from .io import expand_filepaths, read_sys_file
+from .io import get_sys_files, read_sys_file
 from .whitespace_checks import check_whitespace
 
 
@@ -24,7 +24,7 @@ def check_file(file_contents: str) -> list[ParseBaseException | WhiteSpaceError]
 def cli(paths: list[str]) -> None:
     found_errors = False
 
-    for filepath in expand_filepaths(paths):
+    for filepath in get_sys_files(paths):
         errors = check_file(read_sys_file(filepath))
         if not errors:
             continue
