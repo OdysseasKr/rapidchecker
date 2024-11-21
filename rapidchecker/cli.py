@@ -24,15 +24,11 @@ def check_file(file_contents: str) -> list[ParseBaseException | WhiteSpaceError]
 
 
 @click.command()
-@click.argument("path", type=click.Path(exists=True))
-@click.option("--ignore", multiple=True)
-def cli(path: str, ignore: list[str]) -> None:
+@click.argument("paths", nargs=-1, type=click.Path(exists=True, dir_okay=False))
+def cli(paths: list[str]) -> None:
     found_errors = False
 
-    for filepath in get_sys_files(path):
-        if in_ignore_list(str(filepath), ignore):
-            print("Skipping", filepath)
-            continue
+    for filepath in paths:
         errors = check_file(read_sys_file(filepath))
         if not errors:
             continue
