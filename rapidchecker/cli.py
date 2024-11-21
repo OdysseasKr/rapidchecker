@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 
 import click
 from pyparsing import ParseBaseException
@@ -7,12 +8,12 @@ from rich import print
 from rapidchecker.whitespace_checks import WhiteSpaceError
 
 from .check import check_format
-from .io import get_sys_files, read_sys_file
 from .whitespace_checks import check_whitespace
 
 
-def in_ignore_list(path: str, ignore_list: list[str]) -> bool:
-    return any(item in path for item in ignore_list)
+def read_sys_file(path: str | Path) -> str:
+    with Path(path).open() as f:
+        return f.read()
 
 
 def check_file(file_contents: str) -> list[ParseBaseException | WhiteSpaceError]:
