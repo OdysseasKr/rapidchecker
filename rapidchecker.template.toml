@@ -1,0 +1,40 @@
+# Check for indentation errors
+indentation_check = true
+
+# Expected indentation size (spaces only)
+indentation_size = 2
+
+# Throw error when RAPID keywords (IF, PROC, MODULE) are not in uppercase
+require_uppercase_keywords = true
+
+# Maximum number of allowed empty lines
+max_empty_lines = 2
+
+# Throw error if file doesn't end with a new line
+require_new_line_eof = true
+
+# Throw error when trailing space is found
+allow_trailing_space = false
+
+# When indent_error_section = false, the error section in a procedure should be indented as follows
+#
+# PROC procName
+#   call1;
+#   ....
+# ERROR
+#   call2;
+#   ...
+# ENDPROC
+#
+# and when indent_error_section = true
+#
+# PROC procName
+#   call1;
+#   ...
+#   ERROR
+#     call2;
+#     ...
+# ENDPROC
+#
+indent_error_section = false
+
