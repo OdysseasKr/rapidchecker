@@ -55,6 +55,8 @@ ENDTEST = RapidKeyword("ENDTEST")
 CASE = RapidKeyword("CASE")
 DEFAULT = RapidKeyword("DEFAULT")
 ERROR = RapidKeyword("ERROR")
+UNDO = RapidKeyword("UNDO")
+BACKWARD = RapidKeyword("BACKWARD")
 INOUT = RapidKeyword("INOUT")
 TASK = RapidKeyword("TASK")
 LOCAL = RapidKeyword("LOCAL")
@@ -100,6 +102,8 @@ RESERVED_WORD = (
     | CASE
     | DEFAULT
     | ERROR
+    | UNDO
+    | BACKWARD
     | INOUT
     | TASK
     | LOCAL
