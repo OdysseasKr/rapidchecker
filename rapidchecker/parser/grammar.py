@@ -150,11 +150,17 @@ func_def = (
     - T.ENDFUNC
 )
 
-# Proc definition
+# Backward, Error & Undo sections
 if CONFIG.indent_error_section:
+    backward_section = T.BACKWARD - INDENT - stmt_block - UNDENT
     error_section = T.ERROR - INDENT - stmt_block - UNDENT
+    undo_section = T.UNDO - INDENT - stmt_block - UNDENT
 else:
+    backward_section = INDENT_CHECKPOINT + T.BACKWARD - stmt_block
     error_section = INDENT_CHECKPOINT + T.ERROR - stmt_block
+    undo_section = INDENT_CHECKPOINT + T.UNDO - stmt_block
+
+# Proc definition
 proc_def = (
     T.PROC
     - identifier
@@ -162,7 +168,9 @@ proc_def = (
     - parameter_list
     - ")"
     - stmt_block
+    - pp.Optional(backward_section)
     - pp.Optional(error_section)
+    - pp.Optional(undo_section)
     - INDENT_CHECKPOINT
     - T.ENDPROC
 )
